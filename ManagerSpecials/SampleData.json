@@ -1,0 +1,29 @@
+{
+   "canvasUnit":16,
+   "managerSpecials":[
+      {
+         "imageUrl":"https://raw.githubusercontent.com/Swiftly-Systems/code-exercise-ios/master/images/L.png",
+         "width":16,
+         "height":8,
+         "display_name":"Noodle Dish with Roasted Black Bean Sauce",
+         "original_price":"2.00",
+         "price":"1.00"
+      },
+      {
+         "imageUrl":"https://raw.githubusercontent.com/Swiftly-Systems/code-exercise-ios/master/images/J.png",
+         "width":8,
+         "height":8,
+         "display_name":"Onion Flavored Rings",
+         "original_price":"2.00",
+         "price":"1.00"
+      },
+      {
+         "imageUrl":"https://raw.githubusercontent.com/Swiftly-Systems/code-exercise-ios/master/images/K.png",
+         "width":8,
+         "height":8,
+         "display_name":"Kikkoman Less Sodium Soy Sauce",
+         "original_price":"2.00",
+         "price":"1.00"
+      }
+   ]
+}
