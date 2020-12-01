@@ -18,7 +18,7 @@ class ManagerSpecialCollectionViewController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // setup the compositional layout
+        // Populate Data (TODO: move networking outside of this view controller)
         do {
             let data = try Data(contentsOf: URL(string: endPoint)!)
             
@@ -32,6 +32,26 @@ class ManagerSpecialCollectionViewController: UICollectionViewController {
         } catch {
             print(error)
         }
+        
+        // setup the compositional layout
+  
+        var layoutItems = [NSCollectionLayoutItem]()
+        let partitionSize = collectionView.safeAreaLayoutGuide.layoutFrame.width / CGFloat(canvasPartionCount)
+        for item in sampleItems {
+            let fractionalWidth = partitionSize * CGFloat(item.width)
+            let fractionalHeight = partitionSize * CGFloat(item.height)
+            let size = NSCollectionLayoutSize(widthDimension: .absolute(fractionalWidth),
+                                              heightDimension: .absolute(fractionalHeight))
+            let collectionItem = NSCollectionLayoutItem(layoutSize: size)
+            layoutItems.append(collectionItem)
+        }
+        
+        let group = NSCollectionLayoutGroup.vertical(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1)), subitems: layoutItems)
+        group.interItemSpacing = .fixed(8.0)
+        let section = NSCollectionLayoutSection(group: group)
+        let layout = UICollectionViewCompositionalLayout(section: section)
+       
+        collectionView.collectionViewLayout = layout
     }
 
     // MARK: UICollectionViewDataSource
