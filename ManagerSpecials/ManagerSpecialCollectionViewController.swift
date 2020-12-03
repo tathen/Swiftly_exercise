@@ -49,7 +49,7 @@ class ManagerSpecialCollectionViewController: UICollectionViewController {
         
         // center groups
         groupedItems.forEach { (group) in
-//            group.edgeSpacing = NSCollectionLayoutEdgeSpacing(leading: .flexible(padding), top: nil, trailing: .flexible(padding), bottom: nil)
+            group.edgeSpacing = NSCollectionLayoutEdgeSpacing(leading: .flexible(padding), top: nil, trailing: .flexible(padding), bottom: nil)
         }
         
         // apply to section
