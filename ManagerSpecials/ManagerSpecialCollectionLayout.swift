@@ -13,9 +13,9 @@ func buildGroups(from items: [NSCollectionLayoutItem], width: CGFloat) -> [NSCol
     guard let item = iterator.next() else { return [] }
     
     var result = [NSCollectionLayoutGroup]()
-    // populate results recursively
-    // TODO: rename this func to reflect it populates 'result'
-    func buildLayoutItem(for item: NSCollectionLayoutItem) {
+
+    /// Uses recursion to build and populate result
+    func buildLayoutGroup(for item: NSCollectionLayoutItem) {
         // base case
         guard let nextItem = iterator.next() else {
             // package up item to result
@@ -25,21 +25,22 @@ func buildGroups(from items: [NSCollectionLayoutItem], width: CGFloat) -> [NSCol
             return
         }
         
-        // TODO: refactor for single call to recurse
+        let recursiveArgument: NSCollectionLayoutItem
         let combinedItemWidth = nextItem.layoutSize.widthDimension.dimension + item.layoutSize.widthDimension.dimension
         if combinedItemWidth <= width {
             // combine item + nextItem into subgroup and recurse
             let subgroupSize = NSCollectionLayoutSize(widthDimension: .absolute(combinedItemWidth), heightDimension: .estimated(200))
             let subgroup = NSCollectionLayoutGroup.horizontal(layoutSize: subgroupSize, subitems: [item, nextItem])
-            buildLayoutItem(for: subgroup)
+            recursiveArgument = subgroup
         } else {
             // reached line break
             let group = NSCollectionLayoutGroup.horizontal(layoutSize: item.layoutSize, subitems: [item])
             result.append(group)
-            buildLayoutItem(for: nextItem)
+            recursiveArgument = nextItem
         }
+        buildLayoutGroup(for: recursiveArgument)
     }
-    buildLayoutItem(for: item)
+    buildLayoutGroup(for: item)
     
     return result
 }

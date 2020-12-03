@@ -6,10 +6,13 @@
 //
 
 import UIKit
+import OSLog
 
 private let reuseIdentifier = "Cell"
+private let verticalCellIdentifier = "verticalCell"
+private let pictureCellIdentifier = "pictureCell"
 private let endPoint = "https://raw.githubusercontent.com/Swiftly-Systems/code-exercise-ios/master/backup"
-internal let padding: CGFloat = 8
+internal let padding: CGFloat = 4
 
 class ManagerSpecialCollectionViewController: UICollectionViewController {
 
@@ -31,7 +34,7 @@ class ManagerSpecialCollectionViewController: UICollectionViewController {
             print(error)
         }
         
-        collectionView.collectionViewLayout = setupCollectionLayout(for: sampleItems, width: collectionView.safeAreaLayoutGuide.layoutFrame.width, partitionCount: canvasPartionCount)
+        collectionView.collectionViewLayout = setupCollectionLayout(for: sampleItems, width: collectionView.safeAreaLayoutGuide.layoutFrame.width - padding * 2, partitionCount: canvasPartionCount)
        
        
     }
@@ -44,14 +47,40 @@ class ManagerSpecialCollectionViewController: UICollectionViewController {
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell: DiscountItemCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! DiscountItemCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! DiscountImageCollectionViewCell
+        
         let item = sampleItems[indexPath.row]
+        
         // Configure the cell
         cell.backgroundColor = .cyan
-        cell.oldPriceLabel.text = item.originalPrice
-        cell.currentPriceLabel.text = item.price
+        cell.oldPriceLabel?.text = item.originalPrice
+        cell.currentPriceLabel?.text = item.price
+        cell.displayNameLabel?.text = item.displayName
+       
+        guard let imageURL = URL(string: item.imageURL) else {
+            os_log("imageURL not available")
+            return cell
+        }
+        var request = URLRequest(url: imageURL)
+        request.allowsConstrainedNetworkAccess = false
+        cell.subscriber = URLSession.shared.dataTaskPublisher(for: request)
+            .tryMap({ data, response in
+                guard let httpResponse = response as? HTTPURLResponse,
+                      httpResponse.statusCode == 200,
+                      let image = UIImage(data: data) else {
+                    throw LoadError.invalidResponse
+                }
+                return image
+            })
+            .replaceError(with: #imageLiteral(resourceName: "NoPic88"))
+            .receive(on: DispatchQueue.main)
+            .assign(to: \.imageView.image, on: cell)
         
         return cell
+    }
+    
+    enum LoadError: Error {
+        case invalidResponse
     }
 
     // MARK: UICollectionViewDelegate

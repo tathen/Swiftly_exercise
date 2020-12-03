@@ -18,7 +18,7 @@
 		B7F38DE92575BA83007FD985 /* ManagerSpecialCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F38DE82575BA83007FD985 /* ManagerSpecialCollectionViewController.swift */; };
 		B7F38DEE2575BADC007FD985 /* SampleData.json in Sources */ = {isa = PBXBuildFile; fileRef = B7F38DED2575BADC007FD985 /* SampleData.json */; };
 		B7F38DF62575BC92007FD985 /* DiscountItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F38DF52575BC92007FD985 /* DiscountItem.swift */; };
-		B7F38DFE2575C96B007FD985 /* DiscountItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F38DFD2575C96B007FD985 /* DiscountItemCollectionViewCell.swift */; };
+		B7F38DFE2575C96B007FD985 /* DiscountImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F38DFD2575C96B007FD985 /* DiscountImageCollectionViewCell.swift */; };
 		B7F38E0B25788B89007FD985 /* ManagerSpecialCollectionLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F38E0A25788B89007FD985 /* ManagerSpecialCollectionLayout.swift */; };
 /* End PBXBuildFile section */
 
@@ -57,7 +57,7 @@
 		B7F38DE82575BA83007FD985 /* ManagerSpecialCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagerSpecialCollectionViewController.swift; sourceTree = "<group>"; };
 		B7F38DED2575BADC007FD985 /* SampleData.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = SampleData.json; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.json; };
 		B7F38DF52575BC92007FD985 /* DiscountItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscountItem.swift; sourceTree = "<group>"; };
-		B7F38DFD2575C96B007FD985 /* DiscountItemCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscountItemCollectionViewCell.swift; sourceTree = "<group>"; };
+		B7F38DFD2575C96B007FD985 /* DiscountImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscountImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		B7F38E0A25788B89007FD985 /* ManagerSpecialCollectionLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagerSpecialCollectionLayout.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -114,7 +114,7 @@
 				B7F38DE82575BA83007FD985 /* ManagerSpecialCollectionViewController.swift */,
 				B7F38E0A25788B89007FD985 /* ManagerSpecialCollectionLayout.swift */,
 				B7F38DF52575BC92007FD985 /* DiscountItem.swift */,
-				B7F38DFD2575C96B007FD985 /* DiscountItemCollectionViewCell.swift */,
+				B7F38DFD2575C96B007FD985 /* DiscountImageCollectionViewCell.swift */,
 				B7F38DED2575BADC007FD985 /* SampleData.json */,
 				B7531F502575B3F900992434 /* Main.storyboard */,
 				B7531F562575B3FA00992434 /* Assets.xcassets */,
@@ -273,7 +273,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B7F38DFE2575C96B007FD985 /* DiscountItemCollectionViewCell.swift in Sources */,
+				B7F38DFE2575C96B007FD985 /* DiscountImageCollectionViewCell.swift in Sources */,
 				B7531F4B2575B3F900992434 /* AppDelegate.swift in Sources */,
 				B7531F4D2575B3F900992434 /* SceneDelegate.swift in Sources */,
 				B7F38DE92575BA83007FD985 /* ManagerSpecialCollectionViewController.swift in Sources */,
