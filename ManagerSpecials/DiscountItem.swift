@@ -26,7 +26,17 @@ class DiscountItem : Codable {
     let originalPrice: String
     let price: String
     
+}
+
+extension DiscountItem {
     
+    var oldPrice: String {
+        "$\(originalPrice)"
+    }
+    
+    var newPrice: String {
+        "$\(price)"
+    }
 }
 
 class EndPointResponse: Codable {

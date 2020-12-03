@@ -65,8 +65,16 @@ class ManagerSpecialCollectionViewController: UICollectionViewController {
         
         // Configure the cell
         decorate(cell: cell)
-        cell.oldPriceLabel?.text = item.originalPrice
-        cell.currentPriceLabel?.text = item.price
+        
+        cell.oldPriceLabel?.text = item.oldPrice
+        let attributesDict: [NSAttributedString.Key : Any] = [NSAttributedString.Key.strikethroughStyle : 2,
+                              NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 20)]
+        let attributedOldPrice = NSAttributedString(string: item.oldPrice, attributes: attributesDict)
+        cell.oldPriceLabel?.attributedText = attributedOldPrice
+        
+        cell.currentPriceLabel?.text = item.newPrice
+        cell.currentPriceLabel?.textColor = #colorLiteral(red: 0.2745098174, green: 0.4862745106, blue: 0.1411764771, alpha: 1)
+        cell.currentPriceLabel?.font = UIFont.boldSystemFont(ofSize: 20)
         cell.displayNameLabel?.text = item.displayName
         guard let imageURL = URL(string: item.imageURL) else {
             os_log("imageURL not available")
