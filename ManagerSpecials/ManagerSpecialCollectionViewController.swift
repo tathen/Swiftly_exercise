@@ -35,9 +35,8 @@ class ManagerSpecialCollectionViewController: UICollectionViewController {
             print(error)
         }
         
+        /// indent for padding on both sides completes layout illusion
         collectionView.collectionViewLayout = setupCollectionLayout(for: sampleItems, width: collectionView.safeAreaLayoutGuide.layoutFrame.width - padding * 2, partitionCount: canvasPartionCount)
-       
-       
     }
 
     // MARK: UICollectionViewDataSource
@@ -64,13 +63,11 @@ class ManagerSpecialCollectionViewController: UICollectionViewController {
         }
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseID, for: indexPath) as! DiscountImageCollectionViewCell
         
-        
         // Configure the cell
-        cell.backgroundColor = .cyan
+        decorate(cell: cell)
         cell.oldPriceLabel?.text = item.originalPrice
         cell.currentPriceLabel?.text = item.price
         cell.displayNameLabel?.text = item.displayName
-       
         guard let imageURL = URL(string: item.imageURL) else {
             os_log("imageURL not available")
             return cell
@@ -91,6 +88,20 @@ class ManagerSpecialCollectionViewController: UICollectionViewController {
             .assign(to: \.imageView.image, on: cell)
         
         return cell
+    }
+    
+    /// Apply color, shadow, and corner radius to the cell
+    /// - Parameter cell: The cell to decorate
+    func decorate(cell: UICollectionViewCell) {
+        cell.contentView.layer.cornerRadius = 10
+        cell.contentView.layer.masksToBounds = true
+        cell.contentView.backgroundColor = .white
+        
+        cell.layer.shadowColor = UIColor.gray.cgColor
+        cell.layer.shadowOffset = CGSize(width: 0, height: 2.0)
+        cell.layer.shadowRadius = 8
+        cell.layer.shadowOpacity = 0.5
+        cell.layer.masksToBounds = false
     }
     
     enum LoadError: Error {
