@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="OzA-rK-7a7">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="kVt-bs-vaW">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
@@ -8,12 +8,12 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Manager Special Collection View Controller-->
+        <!--Manager's Special-->
         <scene sceneID="8yb-f7-fsL">
             <objects>
-                <collectionViewController id="OzA-rK-7a7" customClass="ManagerSpecialCollectionViewController" customModule="ManagerSpecials" customModuleProvider="target" sceneMemberID="viewController">
+                <collectionViewController title="Manager's Special" id="OzA-rK-7a7" customClass="ManagerSpecialCollectionViewController" customModule="ManagerSpecials" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="ZRU-5J-4Hn">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemGroupedBackgroundColor"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="SPj-En-zPx">
@@ -219,8 +219,27 @@
                             <outlet property="delegate" destination="OzA-rK-7a7" id="3xl-ay-4ai"/>
                         </connections>
                     </collectionView>
+                    <navigationItem key="navigationItem" title="Manager's Special" id="eb6-gX-SaJ"/>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nSJ-9R-aGU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="728.98550724637687" y="60.9375"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="nvM-h3-A7u">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="kVt-bs-vaW" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="6RF-px-QYm">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="OzA-rK-7a7" kind="relationship" relationship="rootViewController" id="zXa-A2-1rp"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vpy-vV-Jfe" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-181.15942028985509" y="60.9375"/>
         </scene>
