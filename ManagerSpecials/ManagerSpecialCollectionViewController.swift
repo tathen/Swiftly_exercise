@@ -9,7 +9,7 @@ import UIKit
 
 private let reuseIdentifier = "Cell"
 private let endPoint = "https://raw.githubusercontent.com/Swiftly-Systems/code-exercise-ios/master/backup"
-private let padding: CGFloat = 8
+internal let padding: CGFloat = 8
 
 class ManagerSpecialCollectionViewController: UICollectionViewController {
 
@@ -31,81 +31,11 @@ class ManagerSpecialCollectionViewController: UICollectionViewController {
             print(error)
         }
         
-        // setup the compositional layout
-  
-        var layoutItems = [NSCollectionLayoutItem]()
-        let partitionSize = collectionView.safeAreaLayoutGuide.layoutFrame.width / CGFloat(canvasPartionCount)
-        for item in sampleItems { //TODO: use .map()
-            let fractionalWidth = partitionSize * CGFloat(item.width)
-            let fractionalHeight = partitionSize * CGFloat(item.height)
-            let size = NSCollectionLayoutSize(widthDimension: .absolute(fractionalWidth),
-                                              heightDimension: .absolute(fractionalHeight))
-            let collectionItem = NSCollectionLayoutItem(layoutSize: size)
-            collectionItem.contentInsets = NSDirectionalEdgeInsets(top: padding, leading: padding, bottom: padding, trailing: padding)
-            layoutItems.append(collectionItem)
-        }
-        var groupedItems: [NSCollectionLayoutGroup] =  buildGroups(from: layoutItems)
+        collectionView.collectionViewLayout = setupCollectionLayout(for: sampleItems, width: collectionView.safeAreaLayoutGuide.layoutFrame.width, partitionCount: canvasPartionCount)
        
-        
-        // center groups
-        groupedItems.forEach { (group) in
-            group.edgeSpacing = NSCollectionLayoutEdgeSpacing(leading: .flexible(padding), top: nil, trailing: .flexible(padding), bottom: nil)
-        }
-        
-        // apply to section
-        guard groupedItems.isEmpty == false else { return }
-        let allItemsSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
-                                               heightDimension: .estimated(100))
-        let allItemsGroup = NSCollectionLayoutGroup.vertical(layoutSize: allItemsSize, subitems: groupedItems)
-        let section = NSCollectionLayoutSection(group: allItemsGroup)
-        let layout = UICollectionViewCompositionalLayout(section: section)
-       
-        collectionView.collectionViewLayout = layout
-        
-        
        
     }
-    //    TODO: move this func
-    func buildGroups(from items: [NSCollectionLayoutItem]) -> [NSCollectionLayoutGroup] {
-        var iterator = items.makeIterator()
-        guard let item = iterator.next() else { return [] }
-        
-        var result = [NSCollectionLayoutGroup]()
-        // populate results recursively
-        // TODO: rename this func to reflect it populates 'result'
-        func buildLayoutItem(for item: NSCollectionLayoutItem) {
-            // base case
-            guard let nextItem = iterator.next() else {
-                // package up item to result
-                let size = item.layoutSize
-                let group = NSCollectionLayoutGroup.horizontal(layoutSize: size, subitems: [item])
-                result.append(group)
-                return
-            }
-            
-            // TODO: refactor for single call to recurse
-            let combinedItemWidth = nextItem.layoutSize.widthDimension.dimension + item.layoutSize.widthDimension.dimension
-            if combinedItemWidth <= collectionView.safeAreaLayoutGuide.layoutFrame.width {
-                // combine item + nextItem into subgroup and recurse
-                let subgroupSize = NSCollectionLayoutSize(widthDimension: .absolute(combinedItemWidth), heightDimension: .estimated(200))
-                let subgroup = NSCollectionLayoutGroup.horizontal(layoutSize: subgroupSize, subitems: [item, nextItem])
-                buildLayoutItem(for: subgroup)
-            } else {
-                // reached line break
-                let group = NSCollectionLayoutGroup.horizontal(layoutSize: item.layoutSize, subitems: [item])
-                result.append(group)
-                buildLayoutItem(for: nextItem)
-            }
-        }
-        
-        buildLayoutItem(for: item)
-        
-        
-//        result = items
-        
-        return result
-    }
-    
+
     // MARK: UICollectionViewDataSource
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
