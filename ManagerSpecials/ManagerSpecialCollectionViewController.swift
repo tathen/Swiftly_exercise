@@ -11,6 +11,7 @@ import OSLog
 private let reuseIdentifier = "Cell"
 private let verticalCellIdentifier = "verticalCell"
 private let pictureCellIdentifier = "pictureCell"
+private let longAndShortCellIdentifier = "longAndShortCell"
 private let endPoint = "https://raw.githubusercontent.com/Swiftly-Systems/code-exercise-ios/master/backup"
 internal let padding: CGFloat = 4
 
@@ -47,9 +48,22 @@ class ManagerSpecialCollectionViewController: UICollectionViewController {
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! DiscountImageCollectionViewCell
-        
         let item = sampleItems[indexPath.row]
+        let reuseID: String
+        switch (item.width, item.height) {
+        case (0...3, _):
+            reuseID = pictureCellIdentifier
+        case (4...5, 0...5):
+            reuseID = pictureCellIdentifier
+        case (4...5, _):
+            reuseID = verticalCellIdentifier
+        case (_, 0...4):
+            reuseID = longAndShortCellIdentifier
+        default:
+            reuseID = reuseIdentifier
+        }
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseID, for: indexPath) as! DiscountImageCollectionViewCell
+        
         
         // Configure the cell
         cell.backgroundColor = .cyan
