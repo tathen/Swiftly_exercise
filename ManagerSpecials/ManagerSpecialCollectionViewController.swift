@@ -7,6 +7,7 @@
 
 import UIKit
 import OSLog
+import Combine
 
 private let fullDetailCellIdentifier = "Cell"
 private let verticalCellIdentifier = "verticalCell"
@@ -18,8 +19,18 @@ private let priceFontSize: CGFloat = 24
 
 class ManagerSpecialCollectionViewController: UICollectionViewController {
 
-    var canvasPartionCount: CanvasUnit = 1
-    var sampleItems = [DiscountItem]()
+    var canvasPartionCount: CanvasUnit = 1 {
+        didSet {
+            updateCollectionViewLayout()
+        }
+    }
+    var discountItems = [DiscountItem]() {
+        didSet {
+            updateCollectionViewLayout()
+        }
+    }
+    var dataTimer: AnyCancellable?
+    var itemLoader: AnyCancellable?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,24 +42,30 @@ class ManagerSpecialCollectionViewController: UICollectionViewController {
             let decoder = JSONDecoder()
             let endPointResponse = try decoder.decode(EndPointResponse.self, from: data)
             canvasPartionCount = endPointResponse.canvasPartition
-            sampleItems = endPointResponse.managerSpecials
+            discountItems = endPointResponse.managerSpecials
         } catch {
             print(error)
         }
-        
+    }
+    
+    private func updateCollectionViewLayout() {
         // indent for padding on both sides completes layout illusion
         let layoutWidth: CGFloat = collectionView.safeAreaLayoutGuide.layoutFrame.width - padding * 2
-        collectionView.collectionViewLayout = collectionLayout(for: sampleItems, width: layoutWidth, partitionCount: canvasPartionCount)
+        collectionView.collectionViewLayout = collectionLayout(for: discountItems, width: layoutWidth, partitionCount: canvasPartionCount)
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        updateCollectionViewLayout()
     }
 
     // MARK: UICollectionViewDataSource
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return sampleItems.count
+        return discountItems.count
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let item = sampleItems[indexPath.row]
+        let item = discountItems[indexPath.row]
         let reuseID: String
         switch (item.width, item.height) {
         case (0...3, _):
@@ -73,6 +90,7 @@ class ManagerSpecialCollectionViewController: UICollectionViewController {
     
     enum LoadError: Error {
         case invalidResponse
+        case illformedData
     }
     
     /// Apply color, shadow, and corner radius to the cell
@@ -108,8 +126,7 @@ class ManagerSpecialCollectionViewController: UICollectionViewController {
             os_log("imageURL not available")
             return
         }
-        var request = URLRequest(url: imageURL)
-        request.allowsConstrainedNetworkAccess = false
+        let request = URLRequest(url: imageURL)
         cell.subscriber = URLSession.shared.dataTaskPublisher(for: request)
             .tryMap({ data, response in
                 guard let httpResponse = response as? HTTPURLResponse,
