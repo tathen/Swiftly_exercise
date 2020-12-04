@@ -34,18 +34,38 @@ class ManagerSpecialCollectionViewController: UICollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        fetchDiscountItems()
+    }
+    
+    /// Fetch the items to populate canvseePartitionCount and discountItems
+    private func fetchDiscountItems() {
+        //        dataTimer = Timer.publish(every: 5, on: RunLoop.main, in: .common)
+        //            .autoconnect()
+        //            .sink() { [weak self] _ in
+        //
+        //            }
         
-        // Populate Data (TODO: move networking outside of this view controller)
-        do {
-            let data = try Data(contentsOf: URL(string: endPoint)!)
-            
-            let decoder = JSONDecoder()
-            let endPointResponse = try decoder.decode(EndPointResponse.self, from: data)
-            canvasPartionCount = endPointResponse.canvasPartition
-            discountItems = endPointResponse.managerSpecials
-        } catch {
-            print(error)
+        guard let url = URL(string: endPoint) else {
+            os_log("Could not make URL from endPoint")
+            return
         }
+        itemLoader = URLSession.shared.dataTaskPublisher(for: url)
+            .tryMap() { data, response -> EndPointResponse in
+                let decoder = JSONDecoder()
+                do {
+                    let endPointResponse = try decoder.decode(EndPointResponse.self, from: data)
+                    return endPointResponse
+                } catch {
+                    throw LoadError.illformedData
+                }
+            }
+            .receive(on: DispatchQueue.main)
+            .assertNoFailure() // if the data can't be used, this app should just crash
+            .sink() { endPointResponse in
+                self.canvasPartionCount = endPointResponse.canvasPartition
+                self.discountItems = endPointResponse.managerSpecials
+            }
+        
     }
     
     private func updateCollectionViewLayout() {
