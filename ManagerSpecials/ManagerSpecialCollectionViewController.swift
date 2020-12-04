@@ -50,26 +50,14 @@ class ManagerSpecialCollectionViewController: UICollectionViewController {
             return
         }
         itemLoader = URLSession.shared.dataTaskPublisher(for: url)
-            .tryMap() { data, response -> EndPointResponse in
-                guard let httpResponse = response as? HTTPURLResponse,
-                      httpResponse.statusCode == 200 else {
-                    throw LoadError.invalidResponse
-                }
-                let decoder = JSONDecoder()
-                do {
-                    let endPointResponse = try decoder.decode(EndPointResponse.self, from: data)
-                    return endPointResponse
-                } catch {
-                    throw LoadError.malformedData
-                }
-            }
+            .map(\.data)
+            .decode(type: EndPointResponse.self, decoder: JSONDecoder())
             .replaceError(with: EndPointResponse())
             .receive(on: DispatchQueue.main)
             .sink() { endPointResponse in
                 self.canvasPartionCount = endPointResponse.canvasPartition
                 self.discountItems = endPointResponse.managerSpecials
             }
-        
     }
     
     private func updateCollectionViewLayout() {
