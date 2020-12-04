@@ -37,12 +37,4 @@ extension DiscountItem {
     }
 }
 
-class EndPointResponse: Codable {
-    enum CodingKeys: String, CodingKey {
-        case canvasPartition = "canvasUnit"
-        case managerSpecials = "managerSpecials"
-    }
-    
-    let canvasPartition: CanvasUnit
-    let managerSpecials: [DiscountItem]
-}
+

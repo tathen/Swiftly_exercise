@@ -15,6 +15,7 @@
 		B7531F5A2575B3FA00992434 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B7531F582575B3FA00992434 /* LaunchScreen.storyboard */; };
 		B7531F652575B3FA00992434 /* ManagerSpecialsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7531F642575B3FA00992434 /* ManagerSpecialsTests.swift */; };
 		B7531F702575B3FA00992434 /* ManagerSpecialsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7531F6F2575B3FA00992434 /* ManagerSpecialsUITests.swift */; };
+		B795FA62257AF4910026E390 /* EndPointResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = B795FA61257AF4910026E390 /* EndPointResponse.swift */; };
 		B7F38DE92575BA83007FD985 /* ManagerSpecialCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F38DE82575BA83007FD985 /* ManagerSpecialCollectionViewController.swift */; };
 		B7F38DEE2575BADC007FD985 /* SampleData.json in Sources */ = {isa = PBXBuildFile; fileRef = B7F38DED2575BADC007FD985 /* SampleData.json */; };
 		B7F38DF62575BC92007FD985 /* DiscountItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F38DF52575BC92007FD985 /* DiscountItem.swift */; };
@@ -54,6 +55,7 @@
 		B7531F6B2575B3FA00992434 /* ManagerSpecialsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ManagerSpecialsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B7531F6F2575B3FA00992434 /* ManagerSpecialsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagerSpecialsUITests.swift; sourceTree = "<group>"; };
 		B7531F712575B3FA00992434 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B795FA61257AF4910026E390 /* EndPointResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPointResponse.swift; sourceTree = "<group>"; };
 		B7F38DE82575BA83007FD985 /* ManagerSpecialCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagerSpecialCollectionViewController.swift; sourceTree = "<group>"; };
 		B7F38DED2575BADC007FD985 /* SampleData.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = SampleData.json; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.json; };
 		B7F38DF52575BC92007FD985 /* DiscountItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscountItem.swift; sourceTree = "<group>"; };
@@ -114,6 +116,7 @@
 				B7F38DE82575BA83007FD985 /* ManagerSpecialCollectionViewController.swift */,
 				B7F38E0A25788B89007FD985 /* ManagerSpecialCollectionLayout.swift */,
 				B7F38DF52575BC92007FD985 /* DiscountItem.swift */,
+				B795FA61257AF4910026E390 /* EndPointResponse.swift */,
 				B7F38DFD2575C96B007FD985 /* DiscountImageCollectionViewCell.swift */,
 				B7F38DED2575BADC007FD985 /* SampleData.json */,
 				B7531F502575B3F900992434 /* Main.storyboard */,
@@ -275,6 +278,7 @@
 			files = (
 				B7F38DFE2575C96B007FD985 /* DiscountImageCollectionViewCell.swift in Sources */,
 				B7531F4B2575B3F900992434 /* AppDelegate.swift in Sources */,
+				B795FA62257AF4910026E390 /* EndPointResponse.swift in Sources */,
 				B7531F4D2575B3F900992434 /* SceneDelegate.swift in Sources */,
 				B7F38DE92575BA83007FD985 /* ManagerSpecialCollectionViewController.swift in Sources */,
 				B7F38DF62575BC92007FD985 /* DiscountItem.swift in Sources */,
