@@ -8,44 +8,48 @@
 import Foundation
 import UIKit
 
-func buildGroups(from items: [NSCollectionLayoutItem], width: CGFloat) -> [NSCollectionLayoutGroup] {
+/// Builds and returns groups by combining items that fit width constraint.
+/// - Parameters:
+///   - items: The set of all collection view items
+///   - width: The maximum width of any group
+/// - Returns: A collection of groups that fit
+func groupedRows(from items: [NSCollectionLayoutItem], width: CGFloat) -> [NSCollectionLayoutGroup] {
     var iterator = items.makeIterator()
     guard let item = iterator.next() else { return [] }
     
-    var result = [NSCollectionLayoutGroup]()
+    /// A rowGroup is a collection of items that fit horizontally to the width
+    var rowGroups = [NSCollectionLayoutGroup]()
 
-    /// Uses recursion to build and populate result
+    /// Builds and populates rowGroups using recusion and polymorphism
     func buildLayoutGroup(for item: NSCollectionLayoutItem) {
-        // base case
         guard let nextItem = iterator.next() else {
-            // package up item to result
+            // base case: exit recursive loop
             let size = item.layoutSize
             let group = NSCollectionLayoutGroup.horizontal(layoutSize: size, subitems: [item])
-            result.append(group)
+            rowGroups.append(group)
             return
         }
-        
-        let recursiveArgument: NSCollectionLayoutItem
+        let recursionArgument: NSCollectionLayoutItem
         let combinedItemWidth = nextItem.layoutSize.widthDimension.dimension + item.layoutSize.widthDimension.dimension
         if combinedItemWidth <= width {
             // combine item + nextItem into subgroup and recurse
             let subgroupSize = NSCollectionLayoutSize(widthDimension: .absolute(combinedItemWidth), heightDimension: .estimated(200))
             let subgroup = NSCollectionLayoutGroup.horizontal(layoutSize: subgroupSize, subitems: [item, nextItem])
-            recursiveArgument = subgroup
+            recursionArgument = subgroup
         } else {
             // reached line break
             let group = NSCollectionLayoutGroup.horizontal(layoutSize: item.layoutSize, subitems: [item])
-            result.append(group)
-            recursiveArgument = nextItem
+            rowGroups.append(group)
+            recursionArgument = nextItem
         }
-        buildLayoutGroup(for: recursiveArgument)
+        buildLayoutGroup(for: recursionArgument)
     }
     buildLayoutGroup(for: item)
     
-    return result
+    return rowGroups
 }
 
-func setupCollectionLayout(for discountItems: [DiscountItem], width: CGFloat, partitionCount: CanvasUnit) -> UICollectionViewLayout {
+func collectionLayout(for discountItems: [DiscountItem], width: CGFloat, partitionCount: CanvasUnit) -> UICollectionViewLayout {
     var layoutItems = [NSCollectionLayoutItem]()
     let partitionSize = width / CGFloat(partitionCount)
     for item in discountItems { //TODO: use .map()
@@ -57,7 +61,7 @@ func setupCollectionLayout(for discountItems: [DiscountItem], width: CGFloat, pa
         collectionItem.contentInsets = NSDirectionalEdgeInsets(top: padding, leading: padding, bottom: padding, trailing: padding)
         layoutItems.append(collectionItem)
     }
-    let groupedItems: [NSCollectionLayoutGroup] =  buildGroups(from: layoutItems, width: width)
+    let groupedItems: [NSCollectionLayoutGroup] =  groupedRows(from: layoutItems, width: width)
    
     // center groups
     groupedItems.forEach { (group) in

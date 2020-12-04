@@ -8,7 +8,7 @@
 import UIKit
 import OSLog
 
-private let reuseIdentifier = "Cell"
+private let fullDetailCellIdentifier = "Cell"
 private let verticalCellIdentifier = "verticalCell"
 private let pictureCellIdentifier = "pictureCell"
 private let longAndShortCellIdentifier = "longAndShortCell"
@@ -36,14 +36,14 @@ class ManagerSpecialCollectionViewController: UICollectionViewController {
             print(error)
         }
         
-        /// indent for padding on both sides completes layout illusion
-        collectionView.collectionViewLayout = setupCollectionLayout(for: sampleItems, width: collectionView.safeAreaLayoutGuide.layoutFrame.width - padding * 2, partitionCount: canvasPartionCount)
+        // indent for padding on both sides completes layout illusion
+        let layoutWidth: CGFloat = collectionView.safeAreaLayoutGuide.layoutFrame.width - padding * 2
+        collectionView.collectionViewLayout = collectionLayout(for: sampleItems, width: layoutWidth, partitionCount: canvasPartionCount)
     }
 
     // MARK: UICollectionViewDataSource
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of items
         return sampleItems.count
     }
 
@@ -52,7 +52,7 @@ class ManagerSpecialCollectionViewController: UICollectionViewController {
         let reuseID: String
         switch (item.width, item.height) {
         case (0...3, _):
-            reuseID = pictureCellIdentifier
+            fallthrough
         case (4...5, 0...5):
             reuseID = pictureCellIdentifier
         case (4...5, _):
@@ -60,43 +60,19 @@ class ManagerSpecialCollectionViewController: UICollectionViewController {
         case (_, 0...4):
             reuseID = longAndShortCellIdentifier
         default:
-            reuseID = reuseIdentifier
+            reuseID = fullDetailCellIdentifier
         }
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseID, for: indexPath) as! DiscountImageCollectionViewCell
         
         // Configure the cell
         decorate(cell: cell)
-        
-        cell.oldPriceLabel?.text = item.oldPrice
-        let attributesDict: [NSAttributedString.Key : Any] = [NSAttributedString.Key.strikethroughStyle : 2,
-                              NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: priceFontSize)]
-        let attributedOldPrice = NSAttributedString(string: item.oldPrice, attributes: attributesDict)
-        cell.oldPriceLabel?.attributedText = attributedOldPrice
-        
-        cell.currentPriceLabel?.text = item.newPrice
-        cell.currentPriceLabel?.textColor = #colorLiteral(red: 0.2745098174, green: 0.4862745106, blue: 0.1411764771, alpha: 1)
-        cell.currentPriceLabel?.font = UIFont.boldSystemFont(ofSize: priceFontSize)
-        cell.displayNameLabel?.text = item.displayName
-        guard let imageURL = URL(string: item.imageURL) else {
-            os_log("imageURL not available")
-            return cell
-        }
-        var request = URLRequest(url: imageURL)
-        request.allowsConstrainedNetworkAccess = false
-        cell.subscriber = URLSession.shared.dataTaskPublisher(for: request)
-            .tryMap({ data, response in
-                guard let httpResponse = response as? HTTPURLResponse,
-                      httpResponse.statusCode == 200,
-                      let image = UIImage(data: data) else {
-                    throw LoadError.invalidResponse
-                }
-                return image
-            })
-            .replaceError(with: #imageLiteral(resourceName: "NoPic88"))
-            .receive(on: DispatchQueue.main)
-            .assign(to: \.imageView.image, on: cell)
-        
+        populateContenst(of: cell, with: item)
+
         return cell
+    }
+    
+    enum LoadError: Error {
+        case invalidResponse
     }
     
     /// Apply color, shadow, and corner radius to the cell
@@ -113,39 +89,38 @@ class ManagerSpecialCollectionViewController: UICollectionViewController {
         cell.layer.masksToBounds = false
     }
     
-    enum LoadError: Error {
-        case invalidResponse
+    /// Populate the labels and images
+    /// - Parameters:
+    ///   - cell: The cell to populate
+    ///   - item: The discounted item
+    func populateContenst(of cell: DiscountImageCollectionViewCell, with item: DiscountItem) {
+        cell.oldPriceLabel?.text = item.oldPrice
+        let attributesDict: [NSAttributedString.Key : Any] = [NSAttributedString.Key.strikethroughStyle : 2,
+                              NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: priceFontSize)]
+        let attributedOldPrice = NSAttributedString(string: item.oldPrice, attributes: attributesDict)
+        cell.oldPriceLabel?.attributedText = attributedOldPrice
+        
+        cell.currentPriceLabel?.text = item.newPrice
+        cell.currentPriceLabel?.textColor = #colorLiteral(red: 0.2745098174, green: 0.4862745106, blue: 0.1411764771, alpha: 1)
+        cell.currentPriceLabel?.font = UIFont.boldSystemFont(ofSize: priceFontSize)
+        cell.displayNameLabel?.text = item.displayName
+        guard let imageURL = URL(string: item.imageURL) else {
+            os_log("imageURL not available")
+            return
+        }
+        var request = URLRequest(url: imageURL)
+        request.allowsConstrainedNetworkAccess = false
+        cell.subscriber = URLSession.shared.dataTaskPublisher(for: request)
+            .tryMap({ data, response in
+                guard let httpResponse = response as? HTTPURLResponse,
+                      httpResponse.statusCode == 200,
+                      let image = UIImage(data: data) else {
+                    throw LoadError.invalidResponse
+                }
+                return image
+            })
+            .replaceError(with: #imageLiteral(resourceName: "NoPic88"))
+            .receive(on: DispatchQueue.main)
+            .assign(to: \.imageView.image, on: cell)
     }
-
-    // MARK: UICollectionViewDelegate
-
-    /*
-    // Uncomment this method to specify if the specified item should be highlighted during tracking
-    override func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment this method to specify if the specified item should be selected
-    override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
-    override func collectionView(_ collectionView: UICollectionView, shouldShowMenuForItemAt indexPath: IndexPath) -> Bool {
-        return false
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, canPerformAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
-        return false
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
-    
-    }
-    */
-
 }

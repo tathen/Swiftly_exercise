@@ -25,11 +25,9 @@ class DiscountItem : Codable {
     let displayName: String
     let originalPrice: String
     let price: String
-    
 }
 
 extension DiscountItem {
-    
     var oldPrice: String {
         "$\(originalPrice)"
     }
