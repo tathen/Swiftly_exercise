@@ -59,8 +59,8 @@ class ManagerSpecialCollectionViewController: UICollectionViewController {
                     throw LoadError.illformedData
                 }
             }
+            .replaceError(with: EndPointResponse())
             .receive(on: DispatchQueue.main)
-            .assertNoFailure() // if the data can't be used, this app should just crash
             .sink() { endPointResponse in
                 self.canvasPartionCount = endPointResponse.canvasPartition
                 self.discountItems = endPointResponse.managerSpecials
