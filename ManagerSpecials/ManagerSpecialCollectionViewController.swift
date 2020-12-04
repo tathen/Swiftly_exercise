@@ -51,12 +51,16 @@ class ManagerSpecialCollectionViewController: UICollectionViewController {
         }
         itemLoader = URLSession.shared.dataTaskPublisher(for: url)
             .tryMap() { data, response -> EndPointResponse in
+                guard let httpResponse = response as? HTTPURLResponse,
+                      httpResponse.statusCode == 200 else {
+                    throw LoadError.invalidResponse
+                }
                 let decoder = JSONDecoder()
                 do {
                     let endPointResponse = try decoder.decode(EndPointResponse.self, from: data)
                     return endPointResponse
                 } catch {
-                    throw LoadError.illformedData
+                    throw LoadError.malformedData
                 }
             }
             .replaceError(with: EndPointResponse())
@@ -110,7 +114,7 @@ class ManagerSpecialCollectionViewController: UICollectionViewController {
     
     enum LoadError: Error {
         case invalidResponse
-        case illformedData
+        case malformedData
     }
     
     /// Apply color, shadow, and corner radius to the cell
