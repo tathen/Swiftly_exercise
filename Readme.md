@@ -12,6 +12,11 @@ Some containers defined by the endPoint are too small to contain all visual elem
 - Price labels
 - DisplayLabel
 
+Some item information will be truncated on screen, but will still be available to VoiceOver and other assisted technologies
+
+
+---
+
 <img src="https://github.com/tathen/Swiftly_exercise/blob/main/Screenshot.png" width="400"/><img src="https://github.com/tathen/Swiftly_exercise/blob/main/Screenshot2.png" width="400"/>
 
 To obtain server updates I implemented polling using Combine's `Timer` publisher

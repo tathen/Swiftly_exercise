@@ -155,5 +155,8 @@ class ManagerSpecialCollectionViewController: UICollectionViewController {
             .replaceError(with: #imageLiteral(resourceName: "NoPic88"))
             .receive(on: DispatchQueue.main)
             .assign(to: \.imageView.image, on: cell)
+    
+        cell.isAccessibilityElement = true
+        cell.accessibilityLabel = "\(item.displayName) was \(item.oldPrice), now \(item.newPrice)"
     }
 }
