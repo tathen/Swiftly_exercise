@@ -95,6 +95,7 @@
 		B7531F3E2575B3F900992434 = {
 			isa = PBXGroup;
 			children = (
+				B780176D257B2A0500DB26E5 /* License and Readme */,
 				B7531F492575B3F900992434 /* ManagerSpecials */,
 				B7531F632575B3FA00992434 /* ManagerSpecialsTests */,
 				B7531F6E2575B3FA00992434 /* ManagerSpecialsUITests */,
@@ -118,7 +119,6 @@
 				B7531F4A2575B3F900992434 /* AppDelegate.swift */,
 				B7531F4C2575B3F900992434 /* SceneDelegate.swift */,
 				B7F38DE82575BA83007FD985 /* ManagerSpecialCollectionViewController.swift */,
-				B780176D257B2A0500DB26E5 /* License and Readme */,
 				B7F38E0A25788B89007FD985 /* ManagerSpecialCollectionLayout.swift */,
 				B7F38DF52575BC92007FD985 /* DiscountItem.swift */,
 				B795FA61257AF4910026E390 /* EndPointResponse.swift */,
