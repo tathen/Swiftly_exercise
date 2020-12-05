@@ -9,16 +9,24 @@ import Foundation
 
 class EndPointResponse: Codable {
     enum CodingKeys: String, CodingKey {
-        case canvasPartition = "canvasUnit"
+        case canvasPartitions = "canvasUnit"
         case managerSpecials
     }
     
     init() {
-        canvasPartition = 1
+        canvasPartitions = 1
         managerSpecials = []
     }
     
-    let canvasPartition: CanvasUnit
+    let canvasPartitions: CanvasUnit
     let managerSpecials: [DiscountItem]
 }
 
+extension EndPointResponse: Equatable {
+    static func == (lhs: EndPointResponse, rhs: EndPointResponse) -> Bool {
+        return lhs.canvasPartitions == rhs.canvasPartitions &&
+            lhs.managerSpecials == rhs.managerSpecials
+    }
+    
+    
+}

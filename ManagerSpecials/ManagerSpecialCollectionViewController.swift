@@ -16,11 +16,11 @@ private let longAndShortCellIdentifier = "longAndShortCell"
 private let endPoint = "https://raw.githubusercontent.com/Swiftly-Systems/code-exercise-ios/master/backup"
 internal let padding: CGFloat = 4
 private let priceFontSize: CGFloat = 24
-private let pollingInterval: TimeInterval = 3
+private let endPointPollingInterval: TimeInterval = 3
 
 class ManagerSpecialCollectionViewController: UICollectionViewController {
 
-    var canvasPartionCount: CanvasUnit = 1 {
+    var endPointValue = EndPointResponse() {
         didSet {
             updateCollectionViewLayout()
         }
@@ -37,15 +37,16 @@ class ManagerSpecialCollectionViewController: UICollectionViewController {
         fetchDiscountItems()
     }
     
-    /// Fetch the items to populate canvsePartitionCount and discountItems
+    /// Fetch the discounted items from the endpoint
+    /// - note: Uses a Timer to continously poll the server
     private func fetchDiscountItems() {
         guard let url = URL(string: endPoint) else {
             os_log("Could not make URL from endPoint string")
             return
         }
-        dataTimer = Timer.publish(every: pollingInterval, on: RunLoop.main, in: .common)
+        dataTimer = Timer.publish(every: endPointPollingInterval, on: RunLoop.main, in: .common)
             .autoconnect()
-            .flatMap(maxPublishers: .unlimited) { _  -> URLSession.DataTaskPublisher in
+            .flatMap(maxPublishers: .unlimited) { _  in
                 return URLSession.shared.dataTaskPublisher(for: url)
             }
             .assertNoFailure()
@@ -54,11 +55,8 @@ class ManagerSpecialCollectionViewController: UICollectionViewController {
             .replaceError(with: EndPointResponse())
             .receive(on: DispatchQueue.main)
             .sink() { endPointResponse in
-                print("check endpoint: \(endPointResponse.managerSpecials.count)")
-                if self.canvasPartionCount != endPointResponse.canvasPartition {
-                    self.canvasPartionCount = endPointResponse.canvasPartition
-                }
-                if self.discountItems != endPointResponse.managerSpecials {
+                if self.endPointValue != endPointResponse {
+                    self.endPointValue = endPointResponse
                     self.discountItems = endPointResponse.managerSpecials
                 }
             }
@@ -67,7 +65,7 @@ class ManagerSpecialCollectionViewController: UICollectionViewController {
     private func updateCollectionViewLayout() {
         // indent for padding on both sides completes layout illusion
         let layoutWidth: CGFloat = collectionView.safeAreaLayoutGuide.layoutFrame.width - padding * 2
-        collectionView.collectionViewLayout = collectionLayout(for: discountItems, width: layoutWidth, partitionCount: canvasPartionCount)
+        collectionView.collectionViewLayout = collectionLayout(for: discountItems, width: layoutWidth, partitionCount: endPointValue.canvasPartitions)
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -108,6 +106,8 @@ class ManagerSpecialCollectionViewController: UICollectionViewController {
         case invalidResponse
         case malformedData
     }
+    
+    // MARK: - Cell Configuration
     
     /// Apply color, shadow, and corner radius to the cell
     /// - Parameter cell: The cell to decorate
