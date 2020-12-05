@@ -10,7 +10,7 @@ import Foundation
 class EndPointResponse: Codable {
     enum CodingKeys: String, CodingKey {
         case canvasPartition = "canvasUnit"
-        case managerSpecials = "managerSpecials"
+        case managerSpecials
     }
     
     init() {

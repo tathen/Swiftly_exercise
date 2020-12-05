@@ -16,6 +16,7 @@ private let longAndShortCellIdentifier = "longAndShortCell"
 private let endPoint = "https://raw.githubusercontent.com/Swiftly-Systems/code-exercise-ios/master/backup"
 internal let padding: CGFloat = 4
 private let priceFontSize: CGFloat = 24
+private let pollingInterval: TimeInterval = 3
 
 class ManagerSpecialCollectionViewController: UICollectionViewController {
 
@@ -30,33 +31,36 @@ class ManagerSpecialCollectionViewController: UICollectionViewController {
         }
     }
     var dataTimer: AnyCancellable?
-    var itemLoader: AnyCancellable?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         fetchDiscountItems()
     }
     
-    /// Fetch the items to populate canvseePartitionCount and discountItems
+    /// Fetch the items to populate canvsePartitionCount and discountItems
     private func fetchDiscountItems() {
-        //        dataTimer = Timer.publish(every: 5, on: RunLoop.main, in: .common)
-        //            .autoconnect()
-        //            .sink() { [weak self] _ in
-        //
-        //            }
-        
         guard let url = URL(string: endPoint) else {
-            os_log("Could not make URL from endPoint")
+            os_log("Could not make URL from endPoint string")
             return
         }
-        itemLoader = URLSession.shared.dataTaskPublisher(for: url)
+        dataTimer = Timer.publish(every: pollingInterval, on: RunLoop.main, in: .common)
+            .autoconnect()
+            .flatMap(maxPublishers: .unlimited) { _  -> URLSession.DataTaskPublisher in
+                return URLSession.shared.dataTaskPublisher(for: url)
+            }
+            .assertNoFailure()
             .map(\.data)
             .decode(type: EndPointResponse.self, decoder: JSONDecoder())
             .replaceError(with: EndPointResponse())
             .receive(on: DispatchQueue.main)
             .sink() { endPointResponse in
-                self.canvasPartionCount = endPointResponse.canvasPartition
-                self.discountItems = endPointResponse.managerSpecials
+                print("check endpoint: \(endPointResponse.managerSpecials.count)")
+                if self.canvasPartionCount != endPointResponse.canvasPartition {
+                    self.canvasPartionCount = endPointResponse.canvasPartition
+                }
+                if self.discountItems != endPointResponse.managerSpecials {
+                    self.discountItems = endPointResponse.managerSpecials
+                }
             }
     }
     

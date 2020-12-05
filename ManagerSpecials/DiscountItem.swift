@@ -37,4 +37,13 @@ extension DiscountItem {
     }
 }
 
-
+extension DiscountItem: Equatable {
+    static func == (lhs: DiscountItem, rhs: DiscountItem) -> Bool {
+        return lhs.imageURL == rhs.imageURL &&
+            lhs.width == rhs.width &&
+            lhs.height == rhs.height &&
+            lhs.displayName == rhs.displayName &&
+            lhs.originalPrice == rhs.originalPrice &&
+            lhs.price == rhs.price
+    }
+}
