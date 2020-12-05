@@ -95,7 +95,9 @@
 		B7531F3E2575B3F900992434 = {
 			isa = PBXGroup;
 			children = (
-				B780176D257B2A0500DB26E5 /* License and Readme */,
+				B7801766257B255100DB26E5 /* Readme.md */,
+				B7801767257B272200DB26E5 /* LICENSE */,
+				B7801768257B29E100DB26E5 /* Screenshot.png */,
 				B7531F492575B3F900992434 /* ManagerSpecials */,
 				B7531F632575B3FA00992434 /* ManagerSpecialsTests */,
 				B7531F6E2575B3FA00992434 /* ManagerSpecialsUITests */,
@@ -149,16 +151,6 @@
 				B7531F712575B3FA00992434 /* Info.plist */,
 			);
 			path = ManagerSpecialsUITests;
-			sourceTree = "<group>";
-		};
-		B780176D257B2A0500DB26E5 /* License and Readme */ = {
-			isa = PBXGroup;
-			children = (
-				B7801766257B255100DB26E5 /* Readme.md */,
-				B7801767257B272200DB26E5 /* LICENSE */,
-				B7801768257B29E100DB26E5 /* Screenshot.png */,
-			);
-			path = "License and Readme";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
