@@ -16,6 +16,7 @@
 		B7531F652575B3FA00992434 /* ManagerSpecialsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7531F642575B3FA00992434 /* ManagerSpecialsTests.swift */; };
 		B7531F702575B3FA00992434 /* ManagerSpecialsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7531F6F2575B3FA00992434 /* ManagerSpecialsUITests.swift */; };
 		B7801769257B29E100DB26E5 /* Screenshot.png in Resources */ = {isa = PBXBuildFile; fileRef = B7801768257B29E100DB26E5 /* Screenshot.png */; };
+		B780176F257B2D9B00DB26E5 /* Screenshot2.png in Resources */ = {isa = PBXBuildFile; fileRef = B780176E257B2D9B00DB26E5 /* Screenshot2.png */; };
 		B795FA62257AF4910026E390 /* EndPointResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = B795FA61257AF4910026E390 /* EndPointResponse.swift */; };
 		B7F38DE92575BA83007FD985 /* ManagerSpecialCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F38DE82575BA83007FD985 /* ManagerSpecialCollectionViewController.swift */; };
 		B7F38DEE2575BADC007FD985 /* SampleData.json in Sources */ = {isa = PBXBuildFile; fileRef = B7F38DED2575BADC007FD985 /* SampleData.json */; };
@@ -59,6 +60,7 @@
 		B7801766257B255100DB26E5 /* Readme.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Readme.md; sourceTree = "<group>"; };
 		B7801767257B272200DB26E5 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		B7801768257B29E100DB26E5 /* Screenshot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Screenshot.png; sourceTree = "<group>"; };
+		B780176E257B2D9B00DB26E5 /* Screenshot2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Screenshot2.png; sourceTree = "<group>"; };
 		B795FA61257AF4910026E390 /* EndPointResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPointResponse.swift; sourceTree = "<group>"; };
 		B7F38DE82575BA83007FD985 /* ManagerSpecialCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagerSpecialCollectionViewController.swift; sourceTree = "<group>"; };
 		B7F38DED2575BADC007FD985 /* SampleData.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = SampleData.json; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.json; };
@@ -98,6 +100,7 @@
 				B7801766257B255100DB26E5 /* Readme.md */,
 				B7801767257B272200DB26E5 /* LICENSE */,
 				B7801768257B29E100DB26E5 /* Screenshot.png */,
+				B780176E257B2D9B00DB26E5 /* Screenshot2.png */,
 				B7531F492575B3F900992434 /* ManagerSpecials */,
 				B7531F632575B3FA00992434 /* ManagerSpecialsTests */,
 				B7531F6E2575B3FA00992434 /* ManagerSpecialsUITests */,
@@ -260,6 +263,7 @@
 				B7531F572575B3FA00992434 /* Assets.xcassets in Resources */,
 				B7801769257B29E100DB26E5 /* Screenshot.png in Resources */,
 				B7531F522575B3F900992434 /* Main.storyboard in Resources */,
+				B780176F257B2D9B00DB26E5 /* Screenshot2.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
