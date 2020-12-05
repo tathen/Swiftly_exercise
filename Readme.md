@@ -12,4 +12,4 @@ Some containers defined by the endPoint are too small to contain all visual elem
 - Price labels
 - DisplayLabel
 
-![Screen Capture][Screenshot.png]
+![Screen Capture][https://github.com/tathen/Swiftly_exercise/blob/main/Screenshot.png]
