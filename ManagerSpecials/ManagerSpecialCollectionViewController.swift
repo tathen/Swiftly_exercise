@@ -77,22 +77,27 @@ class ManagerSpecialCollectionViewController: UICollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return discountItems.count
     }
-
-    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let item = discountItems[indexPath.row]
-        let reuseID: String
+    
+    func reuseIdentifier(for item:DiscountItem) -> String {
+        let reuseIdentifier: String
         switch (item.width, item.height) {
         case (0...3, _):
             fallthrough
         case (4...5, 0...5):
-            reuseID = pictureCellIdentifier
+            reuseIdentifier = pictureCellIdentifier
         case (4...5, _):
-            reuseID = verticalCellIdentifier
+            reuseIdentifier = verticalCellIdentifier
         case (_, 0...4):
-            reuseID = longAndShortCellIdentifier
+            reuseIdentifier = longAndShortCellIdentifier
         default:
-            reuseID = fullDetailCellIdentifier
+            reuseIdentifier = fullDetailCellIdentifier
         }
+        return reuseIdentifier
+    }
+
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let item = discountItems[indexPath.row]
+        let reuseID: String = reuseIdentifier(for: item)
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseID, for: indexPath) as! DiscountImageCollectionViewCell
         
         // Configure the cell
