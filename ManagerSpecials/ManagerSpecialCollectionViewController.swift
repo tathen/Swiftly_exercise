@@ -79,19 +79,23 @@ class ManagerSpecialCollectionViewController: UICollectionViewController {
     }
     
     func reuseIdentifier(for item:DiscountItem) -> String {
+        let partitionPointSize = collectionView.frame.width / CGFloat(endPointValue.canvasPartitions)
+        let itemPointWidth = partitionPointSize * CGFloat(item.width)
+        let itemPointHeight = partitionPointSize * CGFloat(item.height)
         let reuseIdentifier: String
-        switch (item.width, item.height) {
-        case (0...3, _):
-            fallthrough
-        case (4...5, 0...5):
+        let tooNarrow: ClosedRange<CGFloat> = 0...160
+        let tooShort: ClosedRange<CGFloat> = 0...135
+        switch (itemPointWidth, itemPointHeight) {
+        case (tooNarrow, tooShort):
             reuseIdentifier = pictureCellIdentifier
-        case (4...5, _):
+        case (tooNarrow, _):
             reuseIdentifier = verticalCellIdentifier
-        case (_, 0...4):
+        case (_, tooShort):
             reuseIdentifier = longAndShortCellIdentifier
         default:
             reuseIdentifier = fullDetailCellIdentifier
         }
+        
         return reuseIdentifier
     }
 
