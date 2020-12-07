@@ -9,13 +9,19 @@ import UIKit
 import OSLog
 import Combine
 
+// Cell idenitiers
 private let fullDetailCellIdentifier = "Cell"
 private let verticalCellIdentifier = "verticalCell"
 private let pictureCellIdentifier = "pictureCell"
 private let longAndShortCellIdentifier = "longAndShortCell"
+/// The endpoint URL (Source of Truth)
 private let endPoint = "https://raw.githubusercontent.com/Swiftly-Systems/code-exercise-ios/master/backup"
 internal let padding: CGFloat = 4
 private let priceFontSize: CGFloat = 24
+/// The miniumum width required to host cell content with default cell
+private let cellWidthCompactThreshold: CGFloat = 160
+/// The miniumum height required to host cell content with default cell
+private let cellHeightCompactThreshold: CGFloat = 135
 private let endPointPollingInterval: TimeInterval = 3
 
 class ManagerSpecialCollectionViewController: UICollectionViewController {
@@ -70,6 +76,8 @@ class ManagerSpecialCollectionViewController: UICollectionViewController {
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         updateCollectionViewLayout()
+        collectionView.collectionViewLayout.invalidateLayout()
+        collectionView.reloadData()
     }
 
     // MARK: UICollectionViewDataSource
@@ -83,8 +91,8 @@ class ManagerSpecialCollectionViewController: UICollectionViewController {
         let itemPointWidth = partitionPointSize * CGFloat(item.width)
         let itemPointHeight = partitionPointSize * CGFloat(item.height)
         let reuseIdentifier: String
-        let tooNarrow: ClosedRange<CGFloat> = 0...160
-        let tooShort: ClosedRange<CGFloat> = 0...135
+        let tooNarrow: ClosedRange<CGFloat> = 0...cellWidthCompactThreshold
+        let tooShort: ClosedRange<CGFloat> = 0...cellHeightCompactThreshold
         switch (itemPointWidth, itemPointHeight) {
         case (tooNarrow, tooShort):
             reuseIdentifier = pictureCellIdentifier
