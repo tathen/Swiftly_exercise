@@ -69,7 +69,7 @@ class ManagerSpecialCollectionViewController: UICollectionViewController {
     }
     
     private func updateCollectionViewLayout() {
-        // indent for padding on both sides completes layout illusion
+        // indent for padding on both sides completes uniform spacing effect
         let layoutWidth: CGFloat = collectionView.safeAreaLayoutGuide.layoutFrame.width - padding * 2
         collectionView.collectionViewLayout = collectionLayout(for: discountItems, width: layoutWidth, partitionCount: endPointValue.canvasPartitions)
     }
