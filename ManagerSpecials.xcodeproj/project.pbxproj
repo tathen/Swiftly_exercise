@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B70CA4D6258171AA004CEF6F /* SampleData.json in Resources */ = {isa = PBXBuildFile; fileRef = B7F38DED2575BADC007FD985 /* SampleData.json */; };
 		B7531F4B2575B3F900992434 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7531F4A2575B3F900992434 /* AppDelegate.swift */; };
 		B7531F4D2575B3F900992434 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7531F4C2575B3F900992434 /* SceneDelegate.swift */; };
 		B7531F522575B3F900992434 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B7531F502575B3F900992434 /* Main.storyboard */; };
@@ -19,7 +20,6 @@
 		B780176F257B2D9B00DB26E5 /* Screenshot2.png in Resources */ = {isa = PBXBuildFile; fileRef = B780176E257B2D9B00DB26E5 /* Screenshot2.png */; };
 		B795FA62257AF4910026E390 /* EndPointResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = B795FA61257AF4910026E390 /* EndPointResponse.swift */; };
 		B7F38DE92575BA83007FD985 /* ManagerSpecialCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F38DE82575BA83007FD985 /* ManagerSpecialCollectionViewController.swift */; };
-		B7F38DEE2575BADC007FD985 /* SampleData.json in Sources */ = {isa = PBXBuildFile; fileRef = B7F38DED2575BADC007FD985 /* SampleData.json */; };
 		B7F38DF62575BC92007FD985 /* DiscountItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F38DF52575BC92007FD985 /* DiscountItem.swift */; };
 		B7F38DFE2575C96B007FD985 /* DiscountImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F38DFD2575C96B007FD985 /* DiscountImageCollectionViewCell.swift */; };
 		B7F38E0B25788B89007FD985 /* ManagerSpecialCollectionLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F38E0A25788B89007FD985 /* ManagerSpecialCollectionLayout.swift */; };
@@ -128,7 +128,6 @@
 				B7F38DF52575BC92007FD985 /* DiscountItem.swift */,
 				B795FA61257AF4910026E390 /* EndPointResponse.swift */,
 				B7F38DFD2575C96B007FD985 /* DiscountImageCollectionViewCell.swift */,
-				B7F38DED2575BADC007FD985 /* SampleData.json */,
 				B7531F502575B3F900992434 /* Main.storyboard */,
 				B7531F562575B3FA00992434 /* Assets.xcassets */,
 				B7531F582575B3FA00992434 /* LaunchScreen.storyboard */,
@@ -141,6 +140,7 @@
 		B7531F632575B3FA00992434 /* ManagerSpecialsTests */ = {
 			isa = PBXGroup;
 			children = (
+				B7F38DED2575BADC007FD985 /* SampleData.json */,
 				B7531F642575B3FA00992434 /* ManagerSpecialsTests.swift */,
 				B7531F662575B3FA00992434 /* Info.plist */,
 			);
@@ -271,6 +271,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B70CA4D6258171AA004CEF6F /* SampleData.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -295,7 +296,6 @@
 				B7F38DE92575BA83007FD985 /* ManagerSpecialCollectionViewController.swift in Sources */,
 				B7F38DF62575BC92007FD985 /* DiscountItem.swift in Sources */,
 				B7F38E0B25788B89007FD985 /* ManagerSpecialCollectionLayout.swift in Sources */,
-				B7F38DEE2575BADC007FD985 /* SampleData.json in Sources */,
 				B7531F552575B3F900992434 /* ManagerSpecials.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
