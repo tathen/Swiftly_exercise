@@ -63,11 +63,12 @@
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="Cme-60-EEf" firstAttribute="leading" secondItem="cUN-ZS-HMi" secondAttribute="leading" constant="20" symbolic="YES" id="62G-vH-tDN"/>
+                                        <constraint firstItem="Cme-60-EEf" firstAttribute="top" relation="greaterThanOrEqual" secondItem="9nV-WD-vB9" secondAttribute="bottom" constant="8" id="BUM-zb-drg"/>
                                         <constraint firstAttribute="trailing" secondItem="Cme-60-EEf" secondAttribute="trailing" constant="20" symbolic="YES" id="NhM-Jv-pYI"/>
                                         <constraint firstItem="9nV-WD-vB9" firstAttribute="leading" secondItem="cUN-ZS-HMi" secondAttribute="leading" constant="8" id="XDd-6T-Mke"/>
                                         <constraint firstItem="ICf-hB-OFs" firstAttribute="top" secondItem="cUN-ZS-HMi" secondAttribute="top" constant="20" symbolic="YES" id="YBt-as-nyW"/>
                                         <constraint firstItem="9nV-WD-vB9" firstAttribute="top" secondItem="cUN-ZS-HMi" secondAttribute="top" constant="20" symbolic="YES" id="hXX-7L-qEZ"/>
-                                        <constraint firstAttribute="bottom" secondItem="Cme-60-EEf" secondAttribute="bottom" constant="20" symbolic="YES" id="hrR-Yh-fNL"/>
+                                        <constraint firstAttribute="bottom" secondItem="Cme-60-EEf" secondAttribute="bottom" priority="999" constant="20" symbolic="YES" id="hrR-Yh-fNL"/>
                                         <constraint firstAttribute="trailing" secondItem="ICf-hB-OFs" secondAttribute="trailing" constant="20" symbolic="YES" id="ssH-Pn-r9y"/>
                                     </constraints>
                                 </collectionViewCellContentView>

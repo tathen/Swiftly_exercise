@@ -13,7 +13,5 @@ class EndPointResponseTests: XCTestCase {
         let basicEndPoint = EndPointResponse()
         let defaultValuesEndPoint = EndPointResponse(partitions: 1, specials: [])
         XCTAssertEqual(basicEndPoint, defaultValuesEndPoint)
-        
-       
     }
 }

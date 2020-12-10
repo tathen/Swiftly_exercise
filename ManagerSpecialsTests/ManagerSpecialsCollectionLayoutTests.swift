@@ -10,7 +10,6 @@ import XCTest
 
 class ManagerSpecialsCollectionLayoutTests: XCTestCase {
 
-    
     var discountItems: [DiscountItem]!
     var canvasPartitionCount: CanvasUnit!
     
@@ -22,8 +21,6 @@ class ManagerSpecialsCollectionLayoutTests: XCTestCase {
     }
 
     func testSetup() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
         XCTAssertNotNil(discountItems)
         XCTAssertEqual(discountItems.count, 6)
         XCTAssertNotNil(canvasPartitionCount)
@@ -45,5 +42,4 @@ class ManagerSpecialsCollectionLayoutTests: XCTestCase {
         let groups = groupedRows(from: layoutItems, width: testWidth)
         XCTAssertEqual(groups.count, 3)
     }
-
 }
