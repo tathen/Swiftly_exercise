@@ -19,28 +19,21 @@ class ManagerSpecialCollectionViewControllerTests: XCTestCase {
         
         return managerSpecialCollectionVC.collectionView.dataSource?.collectionView(collectionView, cellForItemAt: firstIndexPath) as! DiscountImageCollectionViewCell
     }
+    var lastCell: DiscountImageCollectionViewCell {
+        let lastIndexPath = IndexPath(item: managerSpecialCollectionVC.discountItems.count - 1, section: 0)
+        
+        return managerSpecialCollectionVC.collectionView.dataSource?.collectionView(collectionView, cellForItemAt: lastIndexPath) as! DiscountImageCollectionViewCell
+    }
     
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
-        let bundle = Bundle(for: ManagerSpecialCollectionViewController.self)
-        let sb = UIStoryboard(name: "Main", bundle: bundle)
-        let navigationController = sb.instantiateInitialViewController()
-        
-        UIApplication.shared.windows.filter {$0.isKeyWindow}.first?.rootViewController = navigationController
-        // invoke getter to instantiate the view
-        _ = navigationController?.view
-        
-        guard let managerSpecialVC = navigationController?.children.first as? ManagerSpecialCollectionViewController else {
-            throw TestEnvironmentError.viewControllerNotFound
-        }
+        let managerSpecialVC = try TestSamples.sampleManagerSpecialCollectionViewController()
         // cancel the data stream and overwrite the discount items
         managerSpecialVC.dataTimer?.cancel()
         let endPointResponse = try! TestSamples.sampleEndPointResponse()
         managerSpecialVC.endPointValue = endPointResponse
         managerSpecialVC.discountItems = endPointResponse.managerSpecials
         managerSpecialCollectionVC = managerSpecialVC
-    
-        _ = managerSpecialCollectionVC.view
     }
 
     override func tearDownWithError() throws {
@@ -78,7 +71,7 @@ class ManagerSpecialCollectionViewControllerTests: XCTestCase {
     
     /// Regression test of endpoint
     func testURL() {
-        let url = ManagerSpecialCollectionViewController.url
+        let url = ManagerSpecialCollectionViewController.endPontURL
         XCTAssertNotNil(url)
         XCTAssertEqual(url, URL(string: "https://raw.githubusercontent.com/Swiftly-Systems/code-exercise-ios/master/backup"))
     }

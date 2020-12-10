@@ -19,6 +19,20 @@ class DiscountItem : Codable {
         case price
     }
     
+    init(imageURL: String,
+         width: CanvasUnit,
+         height: CanvasUnit,
+         displayName: String,
+         originalPrice: String,
+         price: String) {
+        self.imageURL = imageURL
+        self.width = width
+        self.height = height
+        self.displayName = displayName
+        self.originalPrice = originalPrice
+        self.price = price
+    }
+    
     let imageURL: String
     let width: CanvasUnit
     let height: CanvasUnit

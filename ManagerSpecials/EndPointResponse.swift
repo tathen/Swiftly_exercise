@@ -13,9 +13,9 @@ class EndPointResponse: Codable {
         case managerSpecials
     }
     
-    init() {
-        canvasPartitions = 1
-        managerSpecials = []
+    init(partitions: CanvasUnit = 1, specials: [DiscountItem] = []) {
+        canvasPartitions = partitions
+        managerSpecials = specials
     }
     
     let canvasPartitions: CanvasUnit

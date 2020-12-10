@@ -42,7 +42,7 @@
          "price":"1.00"
       },
       {
-         "imageUrl":"bad image URL",
+         "imageUrl":"https://bad-image-URL.gov",
          "width":3,
          "height":3,
          "display_name":"Kikkoman Less Sodium Soy Sauce",

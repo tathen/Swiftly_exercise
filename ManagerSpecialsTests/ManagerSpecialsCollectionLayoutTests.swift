@@ -16,16 +16,9 @@ class ManagerSpecialsCollectionLayoutTests: XCTestCase {
     
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
-
-        do {
-            let endPointResponse = try! TestSamples.sampleEndPointResponse()
-            discountItems = endPointResponse.managerSpecials
-            canvasPartitionCount = endPointResponse.canvasPartitions
-        }
-    }
-
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        let endPointResponse = try TestSamples.sampleEndPointResponse()
+        discountItems = endPointResponse.managerSpecials
+        canvasPartitionCount = endPointResponse.canvasPartitions
     }
 
     func testSetup() throws {

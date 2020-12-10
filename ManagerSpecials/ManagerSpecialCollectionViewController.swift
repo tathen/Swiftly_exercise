@@ -43,7 +43,7 @@ class ManagerSpecialCollectionViewController: UICollectionViewController {
         fetchDiscountItems()
     }
     
-    static var url: URL {
+    static var endPontURL: URL {
         guard let url = URL(string: endPoint) else {
             os_log("Could not make URL from endPoint string")
             return URL(string: "")!
@@ -58,7 +58,7 @@ class ManagerSpecialCollectionViewController: UICollectionViewController {
         dataTimer = Timer.publish(every: endPointPollingInterval, on: RunLoop.main, in: .common)
             .autoconnect()
             .flatMap(maxPublishers: .unlimited) { _  in
-                return URLSession.shared.dataTaskPublisher(for: Self.url)
+                return URLSession.shared.dataTaskPublisher(for: Self.endPontURL)
             }
             .assertNoFailure()
             .map(\.data)
