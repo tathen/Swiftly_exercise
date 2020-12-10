@@ -109,12 +109,12 @@ class ManagerSpecialCollectionViewController: UICollectionViewController {
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let item = discountItems[indexPath.row]
-        let reuseID: String = reuseIdentifier(for: item)
+        let reuseID = reuseIdentifier(for: item)
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseID, for: indexPath) as! DiscountImageCollectionViewCell
         
         // Configure the cell
-        decorate(cell: cell)
-        populateContenst(of: cell, with: item)
+        decorate(cell)
+        populateContents(of: cell, with: item)
 
         return cell
     }
@@ -128,7 +128,7 @@ class ManagerSpecialCollectionViewController: UICollectionViewController {
     
     /// Apply color, shadow, and corner radius to the cell
     /// - Parameter cell: The cell to decorate
-    func decorate(cell: UICollectionViewCell) {
+    func decorate(_ cell: UICollectionViewCell) {
         cell.contentView.layer.cornerRadius = 10
         cell.contentView.layer.masksToBounds = true
         cell.contentView.backgroundColor = .white
@@ -144,7 +144,7 @@ class ManagerSpecialCollectionViewController: UICollectionViewController {
     /// - Parameters:
     ///   - cell: The cell to populate
     ///   - item: The discounted item
-    func populateContenst(of cell: DiscountImageCollectionViewCell, with item: DiscountItem) {
+    func populateContents(of cell: DiscountImageCollectionViewCell, with item: DiscountItem) {
         cell.oldPriceLabel?.text = item.oldPrice
         let attributesDict: [NSAttributedString.Key : Any] = [NSAttributedString.Key.strikethroughStyle : 2,
                               NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: priceFontSize)]
