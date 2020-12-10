@@ -24,6 +24,30 @@
          "display_name":"Kikkoman Less Sodium Soy Sauce",
          "original_price":"2.00",
          "price":"1.00"
+      },
+      {
+         "imageUrl":"https://raw.githubusercontent.com/Swiftly-Systems/code-exercise-ios/master/images/K.png",
+         "width":8,
+         "height":3,
+         "display_name":"too short",
+         "original_price":"2.00",
+         "price":"1.00"
+      },
+      {
+         "imageUrl":"https://raw.githubusercontent.com/Swiftly-Systems/code-exercise-ios/master/images/L.png",
+         "width":3,
+         "height":8,
+         "display_name":"too narrow",
+         "original_price":"2.00",
+         "price":"1.00"
+      },
+      {
+         "imageUrl":"bad image URL",
+         "width":3,
+         "height":3,
+         "display_name":"Kikkoman Less Sodium Soy Sauce",
+         "original_price":"2.00",
+         "price":"1.00"
       }
    ]
 }

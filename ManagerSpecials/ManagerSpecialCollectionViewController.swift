@@ -43,17 +43,22 @@ class ManagerSpecialCollectionViewController: UICollectionViewController {
         fetchDiscountItems()
     }
     
+    static var url: URL {
+        guard let url = URL(string: endPoint) else {
+            os_log("Could not make URL from endPoint string")
+            return URL(string: "")!
+        }
+        return url
+    }
+    
+    
     /// Fetch the discounted items from the endpoint
     /// - note: Uses a Timer to continously poll the server
     private func fetchDiscountItems() {
-        guard let url = URL(string: endPoint) else {
-            os_log("Could not make URL from endPoint string")
-            return
-        }
         dataTimer = Timer.publish(every: endPointPollingInterval, on: RunLoop.main, in: .common)
             .autoconnect()
             .flatMap(maxPublishers: .unlimited) { _  in
-                return URLSession.shared.dataTaskPublisher(for: url)
+                return URLSession.shared.dataTaskPublisher(for: Self.url)
             }
             .assertNoFailure()
             .map(\.data)
@@ -86,7 +91,7 @@ class ManagerSpecialCollectionViewController: UICollectionViewController {
         return discountItems.count
     }
     
-    func reuseIdentifier(for item:DiscountItem) -> String {
+    private func reuseIdentifier(for item:DiscountItem) -> String {
         let partitionPointSize = collectionView.frame.width / CGFloat(endPointValue.canvasPartitions)
         let itemPointWidth = partitionPointSize * CGFloat(item.width)
         let itemPointHeight = partitionPointSize * CGFloat(item.height)
@@ -128,7 +133,7 @@ class ManagerSpecialCollectionViewController: UICollectionViewController {
     
     /// Apply color, shadow, and corner radius to the cell
     /// - Parameter cell: The cell to decorate
-    func decorate(_ cell: UICollectionViewCell) {
+    private func decorate(_ cell: UICollectionViewCell) {
         cell.contentView.layer.cornerRadius = 10
         cell.contentView.layer.masksToBounds = true
         cell.contentView.backgroundColor = .white
@@ -144,7 +149,7 @@ class ManagerSpecialCollectionViewController: UICollectionViewController {
     /// - Parameters:
     ///   - cell: The cell to populate
     ///   - item: The discounted item
-    func populateContents(of cell: DiscountImageCollectionViewCell, with item: DiscountItem) {
+    private func populateContents(of cell: DiscountImageCollectionViewCell, with item: DiscountItem) {
         cell.oldPriceLabel?.text = item.oldPrice
         let attributesDict: [NSAttributedString.Key : Any] = [NSAttributedString.Key.strikethroughStyle : 2,
                               NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: priceFontSize)]
