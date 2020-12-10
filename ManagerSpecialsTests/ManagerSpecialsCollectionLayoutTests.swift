@@ -1,6 +1,6 @@
 //
-//  ManagerSpecialsTests.swift
-//  ManagerSpecialsTests
+//  ManagerSpecialsCollectionLayoutTests.swift
+//  ManagerSpecialsCollectionLayoutTests
 //
 //  Created by Sean Howell on 11/30/20.
 //
@@ -8,7 +8,7 @@
 import XCTest
 @testable import ManagerSpecials
 
-class ManagerSpecialsTests: XCTestCase {
+class ManagerSpecialsCollectionLayoutTests: XCTestCase {
 
     enum TestEnvironementError: Error {
         case resourceNotFound
@@ -67,6 +67,9 @@ class ManagerSpecialsTests: XCTestCase {
     //collectionLayout(for discountItems: [DiscountItem], width: CGFloat, partitionCount: CanvasUnit) -> UICollectionViewLayout
     func testCollectionLayoutForDiscountItems() {
         let testWidth: CGFloat = 1000
+        let noItemLayout = collectionLayout(for: [], width: testWidth, partitionCount: canvasPartitionCount)
+        XCTAssertFalse(noItemLayout is UICollectionViewCompositionalLayout)
+     
         let layout = collectionLayout(for: discountItems, width: testWidth, partitionCount: canvasPartitionCount)
         XCTAssert(layout is UICollectionViewCompositionalLayout)
       
