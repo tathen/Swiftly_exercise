@@ -47,6 +47,7 @@ class TestSamples {
             throw TestEnvironmentError.viewControllerNotFound
         }
         _ = managerSpecialVC
+        
         if isLive {
             return managerSpecialVC
         } else {
@@ -59,6 +60,4 @@ class TestSamples {
             return managerSpecialVC
         }
     }
-    
-    
 }

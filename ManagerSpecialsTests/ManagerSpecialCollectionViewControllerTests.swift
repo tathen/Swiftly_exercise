@@ -16,13 +16,7 @@ class ManagerSpecialCollectionViewControllerTests: XCTestCase {
     }
     var firstCell: DiscountImageCollectionViewCell {
         let firstIndexPath = IndexPath(item: 0, section: 0)
-        
-        return managerSpecialCollectionVC.collectionView.dataSource?.collectionView(collectionView, cellForItemAt: firstIndexPath) as! DiscountImageCollectionViewCell
-    }
-    var lastCell: DiscountImageCollectionViewCell {
-        let lastIndexPath = IndexPath(item: managerSpecialCollectionVC.discountItems.count - 1, section: 0)
-        
-        return managerSpecialCollectionVC.collectionView.dataSource?.collectionView(collectionView, cellForItemAt: lastIndexPath) as! DiscountImageCollectionViewCell
+        return managerSpecialCollectionVC.collectionView(collectionView, cellForItemAt: firstIndexPath) as! DiscountImageCollectionViewCell
     }
     
     override func setUpWithError() throws {
@@ -30,10 +24,7 @@ class ManagerSpecialCollectionViewControllerTests: XCTestCase {
         managerSpecialCollectionVC = try TestSamples.managerSpecialCollectionViewController()
     }
 
-
     func testDataSourceSetup() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
         guard let _ = managerSpecialCollectionVC.collectionView.dataSource else {
             throw TestEnvironmentError.datasourceNotAttached
         }
