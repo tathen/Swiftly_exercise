@@ -13,7 +13,7 @@ class TestSamples {
     /// A Sample endpont response drawn from SampleData.json
     /// - Throws: An error if unable to find and decode SampleData
     /// - Returns: A sample sutiable for unit tests
-    static func sampleEndPointResponse() throws -> EndPointResponse {
+    static func endPointResponse() throws -> EndPointResponse {
         // Put setup code here. This method is called before the invocation of each test method in the class.
         let bundle = Bundle(for: Self.self)
         guard let url = bundle.url(forResource: "SampleData", withExtension: "json") else {
@@ -33,7 +33,7 @@ class TestSamples {
     /// An instance of the ManagerSpecialCollectionViewController with view already setup and key window
     /// - Throws: An error if ManagerSpecialCollectionViewController not found in storyboard
     /// - Returns: A ManagerSpecialCollectionViewController suitable for testing
-    static func sampleManagerSpecialCollectionViewController() throws -> ManagerSpecialCollectionViewController {
+    static func managerSpecialCollectionViewController(withLiveTimer isLive: Bool = false) throws -> ManagerSpecialCollectionViewController {
         
         let bundle = Bundle(for: ManagerSpecialCollectionViewController.self)
         let sb = UIStoryboard(name: "Main", bundle: bundle)
@@ -46,8 +46,18 @@ class TestSamples {
         guard let managerSpecialVC = navigationController?.children.first as? ManagerSpecialCollectionViewController else {
             throw TestEnvironmentError.viewControllerNotFound
         }
-        
-        return managerSpecialVC
+        _ = managerSpecialVC
+        if isLive {
+            return managerSpecialVC
+        } else {
+            // cancel the data stream and overwrite the discount items
+            managerSpecialVC.dataTimer?.cancel()
+            let endPointResponse = try! TestSamples.endPointResponse()
+            managerSpecialVC.endPointValue = endPointResponse
+            managerSpecialVC.discountItems = endPointResponse.managerSpecials
+            
+            return managerSpecialVC
+        }
     }
     
     

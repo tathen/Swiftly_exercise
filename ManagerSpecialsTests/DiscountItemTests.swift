@@ -17,7 +17,7 @@ class DiscountItemTests: XCTestCase {
                                         displayName: "Noodle Dish with Roasted Black Bean Sauce",
                                         originalPrice: "2.00",
                                         price: "1.00")
-        let firstItem = try TestSamples.sampleEndPointResponse().managerSpecials.first
+        let firstItem = try TestSamples.endPointResponse().managerSpecials.first
         XCTAssertEqual(firstItem, discountItem)
     }
 }

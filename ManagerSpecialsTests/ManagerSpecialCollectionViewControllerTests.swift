@@ -27,18 +27,9 @@ class ManagerSpecialCollectionViewControllerTests: XCTestCase {
     
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
-        let managerSpecialVC = try TestSamples.sampleManagerSpecialCollectionViewController()
-        // cancel the data stream and overwrite the discount items
-        managerSpecialVC.dataTimer?.cancel()
-        let endPointResponse = try! TestSamples.sampleEndPointResponse()
-        managerSpecialVC.endPointValue = endPointResponse
-        managerSpecialVC.discountItems = endPointResponse.managerSpecials
-        managerSpecialCollectionVC = managerSpecialVC
+        managerSpecialCollectionVC = try TestSamples.managerSpecialCollectionViewController()
     }
 
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
 
     func testDataSourceSetup() throws {
         // This is an example of a functional test case.
@@ -71,7 +62,7 @@ class ManagerSpecialCollectionViewControllerTests: XCTestCase {
     
     /// Regression test of endpoint
     func testURL() {
-        let url = ManagerSpecialCollectionViewController.endPontURL
+        let url = ManagerSpecialCollectionViewController.endPointURL
         XCTAssertNotNil(url)
         XCTAssertEqual(url, URL(string: "https://raw.githubusercontent.com/Swiftly-Systems/code-exercise-ios/master/backup"))
     }

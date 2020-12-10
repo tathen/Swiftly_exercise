@@ -16,7 +16,7 @@ class ManagerSpecialsCollectionLayoutTests: XCTestCase {
     
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
-        let endPointResponse = try TestSamples.sampleEndPointResponse()
+        let endPointResponse = try TestSamples.endPointResponse()
         discountItems = endPointResponse.managerSpecials
         canvasPartitionCount = endPointResponse.canvasPartitions
     }
@@ -46,15 +46,4 @@ class ManagerSpecialsCollectionLayoutTests: XCTestCase {
         XCTAssertEqual(groups.count, 3)
     }
 
-    //collectionLayout(for discountItems: [DiscountItem], width: CGFloat, partitionCount: CanvasUnit) -> UICollectionViewLayout
-    func testCollectionLayoutForDiscountItems() {
-        //TODO: remove useless test, replace with integration test in ViewController
-//        let testWidth: CGFloat = 1000
-//        let noItemLayout = collectionLayout(for: [], width: testWidth, partitionCount: canvasPartitionCount)
-//        XCTAssertFalse(noItemLayout is UICollectionViewCompositionalLayout)
-//
-//        let layout = collectionLayout(for: discountItems, width: testWidth, partitionCount: canvasPartitionCount)
-//        XCTAssert(layout is UICollectionViewCompositionalLayout)
-//        let compLayout = layout as! UICollectionViewCompositionalLayout
-    }
 }
